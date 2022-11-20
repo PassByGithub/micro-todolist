@@ -1,8 +1,21 @@
+/*
+ * @Author: kxxx googglexhx@gmail.com
+ * @Date: 2022-11-18 10:21:49
+ * @LastEditors: kxxx googglexhx@gmail.com
+ * @LastEditTime: 2022-11-20 12:45:30
+ * @FilePath: /micro-todolist/user/conf/conf.go
+ * @Description: Configuration for RabbitMQ and MySQL
+ *
+ * Copyright (c) 2022 by kxxx googglexhx@gmail.com, All Rights Reserved.
+ */
+
 package conf
 
+//组件配置
 import (
 	"fmt"
 	"strings"
+	"user/model"
 
 	ini "gopkg.in/ini.v1"
 )
@@ -32,7 +45,7 @@ func Init() {
 
 	//连接数据库
 	LoadDatabaseConfig(file)
-	pathMySQL := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8&parseTime=true"}, "")
+	pathMySQL := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true&loc=Local"}, "")
 	model.Database(pathMySQL)
 
 	//连接RabbitMQ
