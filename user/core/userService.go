@@ -44,7 +44,7 @@ func (*UserService) UserLogin(ctx context.Context, req *services.UserRequest, re
 
 }
 
-func (*UserService) UserRegist(ctx context.Context, req *services.UserRequest, res *services.UserResponse) error {
+func (*UserService) UserRegister(ctx context.Context, req *services.UserRequest, res *services.UserResponse) error {
 
 	var user model.User
 
