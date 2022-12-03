@@ -22,6 +22,7 @@ func getLogFileFullPath() string {
 	prefixPath := getLogFilePath()
 	suffixPath := fmt.Sprintf("%s%s.%s", LogSaveNmae, time.Now().Format(Timeformat), LogFileExt)
 
+	//return string be like : runtime/logs/log20221127.log
 	return fmt.Sprintf("%s%s", prefixPath, suffixPath)
 }
 

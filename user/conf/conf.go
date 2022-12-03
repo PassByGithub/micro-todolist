@@ -2,7 +2,7 @@
  * @Author: kxxx googglexhx@gmail.com
  * @Date: 2022-11-18 10:21:49
  * @LastEditors: kxxx googglexhx@gmail.com
- * @LastEditTime: 2022-11-20 12:45:30
+ * @LastEditTime: 2022-12-04 00:43:00
  * @FilePath: /micro-todolist/user/conf/conf.go
  * @Description: Configuration for RabbitMQ and MySQL
  *
@@ -49,9 +49,9 @@ func Init() {
 	model.Database(pathMySQL)
 
 	//连接RabbitMQ
-	LoadMQConfig(file)
-	pathMQ := strings.Join([]string{QueueProtocol, "://", QueueUser, ":", QueuePassWord, "@", QueueHost, ":", QueuePort, "/"}, "")
-	model.MessageQueue(pathMQ)
+	// LoadMQConfig(file)
+	// pathMQ := strings.Join([]string{QueueProtocol, "://", QueueUser, ":", QueuePassWord, "@", QueueHost, ":", QueuePort, "/"}, "")
+	// model.MessageQueue(pathMQ)
 
 }
 
@@ -66,12 +66,12 @@ func LoadDatabaseConfig(file *ini.File) {
 
 }
 
-func LoadMQConfig(file *ini.File) {
+// func LoadMQConfig(file *ini.File) {
 
-	Queue = file.Section("messageQueue").Key("Queue").String()
-	QueueProtocol = file.Section("messageQueue").Key("QueueProtocol").String()
-	QueueUser = file.Section("messageQueue").Key("QueueUser").String()
-	QueuePassWord = file.Section("messageQueue").Key("QueuePassWord").String()
-	QueueHost = file.Section("messageQueue").Key("QueueHost").String()
-	QueuePort = file.Section("messageQueue").Key("QueuePort").String()
-}
+// 	Queue = file.Section("messageQueue").Key("Queue").String()
+// 	QueueProtocol = file.Section("messageQueue").Key("QueueProtocol").String()
+// 	QueueUser = file.Section("messageQueue").Key("QueueUser").String()
+// 	QueuePassWord = file.Section("messageQueue").Key("QueuePassWord").String()
+// 	QueueHost = file.Section("messageQueue").Key("QueueHost").String()
+// 	QueuePort = file.Section("messageQueue").Key("QueuePort").String()
+// }

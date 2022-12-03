@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"user/conf"
 	"user/core"
 	"user/services"
 
@@ -11,6 +12,8 @@ import (
 )
 
 func main() {
+
+	conf.Init()
 
 	//etcd注册件
 	etcdReg := etcd.NewRegistry(

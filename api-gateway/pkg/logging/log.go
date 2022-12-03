@@ -33,7 +33,7 @@ func init() {
 	filepath := getLogFileFullPath()
 	F = openLogFile(filepath)
 
-	logger := log.New(F, DefaultPrefix, log.LstdFlags)
+	logger = log.New(F, DefaultPrefix, log.LstdFlags)
 }
 
 func Debug(v ...interface{}) {
