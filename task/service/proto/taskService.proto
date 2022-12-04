@@ -2,7 +2,7 @@ syntax="proto3";
 package services;
 
 import "taskModels.proto";
-option go_package="./;protos";
+option go_package="./;service";
 
 service TaskService{
     rpc CreateTask (TaskRequest) returns (TaskDetailResponse);

@@ -5,7 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
-	"mq-server/model"
+	"task/model"
+	"task/service"
 
 	"github.com/streadway/amqp"
 )
@@ -33,10 +34,13 @@ func (*TaskService) CreateTask(ctx context.Context, req *service.TaskRequest, re
 		false,
 		amqp.Publishing{
 			DeliveryMode: amqp.Persistent,
-			ContentType: "application/json",
-			Body: body,
+			ContentType:  "application/json",
+			Body:         body,
 		})
 	if err != nil {
-		err = errors.New("RabbitMQ Publish Error: "+ err.Error())
+		err = errors.New("RabbitMQ Publish Error: " + err.Error())
 	}
 
+	return err
+
+}
