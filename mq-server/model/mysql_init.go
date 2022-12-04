@@ -1,7 +1,6 @@
 package model
 
 import (
-	"fmt"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -10,6 +9,7 @@ import (
 	"gorm.io/gorm/schema"
 )
 
+//全局调用DB数据库，所以要暴露出来
 var DB *gorm.DB
 
 func Database(connstring string) {
@@ -20,7 +20,7 @@ func Database(connstring string) {
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
-		fmt.Println("Cann't connect to the databse")
+		panic(err)
 	}
 
 	sqldb, err := db.DB()
@@ -28,15 +28,7 @@ func Database(connstring string) {
 	sqldb.SetMaxIdleConns(20)
 	sqldb.SetMaxOpenConns(100)
 	sqldb.SetConnMaxLifetime(time.Second * 30)
-
-	DB = db
-
 	if err != nil {
 		panic(err)
 	}
-
-	//?
-	//sqldb.Set(`gorm:table_options`, "charset=utf8mb4").
-	db.AutoMigrate(&User{})
-
 }
