@@ -3,5 +3,6 @@ go 1.18
 use (
 	./api-gateway
 	./mq-server
+	./task
 	./user
 )
