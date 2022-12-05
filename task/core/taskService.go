@@ -44,3 +44,56 @@ func (*TaskService) CreateTask(ctx context.Context, req *service.TaskRequest, re
 	return err
 
 }
+
+//GetList
+func (*TaskService) GetTaskList(ctx context.Context, req *service.TaskRequest, res *service.TaskListResponse) error {
+	if req.Limit == 0 {
+		req.Limit = 10
+	}
+	var taskData []model.Task
+	var count int64
+
+	err := model.DB.Offset(int(req.Start)).Limit(int(req.Limit)).Where("uid=?", req.Uid).Find(&taskData).Error
+	if err != nil {
+		return errors.New("mysql find error :" + err.Error())
+	}
+
+	model.DB.Model(&model.Task{}).Where("uid=?", req.Uid).Count(&count)
+
+	var taskRes []*service.TaskModel
+	for _, item := range taskData {
+		taskRes = append(taskRes, BuildTask(item))
+	}
+
+	res.TaskList = taskRes
+
+	res.Count = uint32(count)
+	return nil
+}
+
+//GetDetail
+func (*TaskService) GetTask(ctx context.Context, req *service.TaskRequest, res *service.TaskDetailResponse) error {
+	taskData := model.Task{}
+	model.DB.First(&taskData, req.Id)
+	taskRes := BuildTask(taskData)
+	res.TaskDetail = taskRes
+	return nil
+}
+
+//UpdateDetail
+func (*TaskService) UpdateTask(ctx context.Context, req *service.TaskRequest, res *service.TaskDetailResponse) error {
+	taskData := model.Task{}
+	model.DB.Model(&model.Task{}).Where("id=? AND uid=?", req.Id, req.Uid).First(&taskData)
+	taskData.Title = req.Title
+	taskData.Status = int(req.Status)
+	taskData.Content = req.Content
+	model.DB.Save(&taskData)
+	res.TaskDetail = BuildTask(taskData)
+	return nil
+}
+
+//DeleteDetail
+func (*TaskService) DeleteTask(ctx context.Context, req *service.TaskRequest, res *service.TaskDetailResponse) error {
+	model.DB.Model(&model.Task{}).Where("id=? AND uid=?", req.Id, req.Uid).Delete(&model.Task{})
+	return nil
+}

@@ -2,8 +2,8 @@
  * @Author: kxxx googglexhx@gmail.com
  * @Date: 2022-11-18 10:21:49
  * @LastEditors: kxxx googglexhx@gmail.com
- * @LastEditTime: 2022-12-04 14:48:06
- * @FilePath: /micro-todolist/mq-server/conf/conf.go
+ * @LastEditTime: 2022-12-05 22:24:41
+ * @FilePath: /micro-todolist/task/conf/conf.go
  * @Description: Configuration for RabbitMQ and MySQL
  *
  * Copyright (c) 2022 by kxxx googglexhx@gmail.com, All Rights Reserved.
@@ -14,8 +14,8 @@ package conf
 //组件配置
 import (
 	"fmt"
-	"mq-server/model"
 	"strings"
+	"task/model"
 
 	ini "gopkg.in/ini.v1"
 )
