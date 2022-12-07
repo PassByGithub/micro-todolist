@@ -26,6 +26,18 @@ func NewRouter(service ...interface{}) *gin.Engine {
 		//user service
 		v1.POST("/user/register", handlers.UserRegister)
 		v1.POST("/user/login", handlers.UserLogin)
+
+		//login authentification
+		authed := v1.Group("/")
+		authed.Use(middleware.JWT())
+		{
+			authed.GET("task", handlers.GetTaskList)
+			authed.POST("task", handlers.CreateTaskList)
+			authed.GET("task/:id", handlers.GetTaskDetail)
+			authed.PUT("task/:id", handlers.UpdateTask)
+			authed.DELETE("task/:id", handlers.DeleteTask)
+
+		}
 	}
 
 	return ginRouter

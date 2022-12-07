@@ -3,7 +3,7 @@ syntax = "proto3";
 package services;
 
 import "userModels.proto";
-option go_package="./;services";
+option go_package="./;service";
 
 service UserService {
     rpc UserLogin(UserRequest) returns (UserResponse);

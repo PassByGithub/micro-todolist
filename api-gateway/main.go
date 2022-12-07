@@ -1,7 +1,7 @@
 package main
 
 import (
-	"api-gateway/services"
+	"api-gateway/service"
 	"api-gateway/weblib"
 	"api-gateway/wrappers"
 	"time"
@@ -22,11 +22,17 @@ func main() {
 		micro.WrapClient(wrappers.NewUserWrapper),
 	)
 
-	userService := services.NewUserService("rpcUserService", userMicroService.Client())
+	taskMicroService := micro.NewService(
+		micro.Name("taskService.client"),
+		micro.WrapClient(wrappers.NewTaskWrapper),
+	)
+
+	userService := service.NewUserService("rpcUserService", userMicroService.Client())
+	taskService := service.NewTaskService("rpctaskService", taskMicroService.Client())
 	server := web.NewService(
 		web.Name("httpService"),
 		web.Address(":4000"),
-		web.Handler(weblib.NewRouter(userService)),
+		web.Handler(weblib.NewRouter(userService, taskService)),
 		web.Registry(etcdReg),
 		web.RegisterTTL(time.Second*30),
 		web.RegisterInterval(time.Second*15),

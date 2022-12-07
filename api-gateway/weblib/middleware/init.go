@@ -12,6 +12,7 @@ func InitMiddleware(service []interface{}) gin.HandlerFunc {
 		//Pass instance into the gin.Keys
 		context.Keys = make(map[string]interface{})
 		context.Keys["userService"] = service[0]
+		context.Keys["taskService"] = service[1]
 		context.Next()
 	}
 }

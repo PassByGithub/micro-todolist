@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"api-gateway/pkg/utils"
-	"api-gateway/services"
 	"context"
 	"net/http"
+	"user/services"
 
 	"github.com/gin-gonic/gin"
 )
