@@ -1,4 +1,4 @@
-package mqserver
+package main
 
 import (
 	"mq-server/conf"

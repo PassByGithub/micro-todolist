@@ -20,6 +20,7 @@ func Database(connstring string) {
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
+		//无法连接数据库，但依然可以运行下面程序
 		fmt.Println("Cann't connect to the databse")
 	}
 

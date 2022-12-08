@@ -2,7 +2,7 @@
  * @Author: kxxx googglexhx@gmail.com
  * @Date: 2022-11-18 10:21:49
  * @LastEditors: kxxx googglexhx@gmail.com
- * @LastEditTime: 2022-12-05 22:24:41
+ * @LastEditTime: 2022-12-08 23:00:16
  * @FilePath: /micro-todolist/task/conf/conf.go
  * @Description: Configuration for RabbitMQ and MySQL
  *
@@ -57,12 +57,12 @@ func Init() {
 
 func LoadDatabaseConfig(file *ini.File) {
 
-	Db = file.Section("databse").Key("Db").String()
-	DbHost = file.Section("databse").Key("DbHost").String()
-	DbPort = file.Section("databse").Key("DbPort").String()
-	DbUser = file.Section("databse").Key("DbUser").String()
-	DbPassWord = file.Section("databse").Key("DbPassWord").String()
-	DbName = file.Section("databse").Key("DbName").String()
+	Db = file.Section("database").Key("Db").String()
+	DbHost = file.Section("database").Key("DbHost").String()
+	DbPort = file.Section("database").Key("DbPort").String()
+	DbUser = file.Section("database").Key("DbUser").String()
+	DbPassWord = file.Section("database").Key("DbPassWord").String()
+	DbName = file.Section("database").Key("DbName").String()
 
 }
 
