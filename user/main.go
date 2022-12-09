@@ -4,7 +4,7 @@ import (
 	"log"
 	"user/conf"
 	"user/core"
-	"user/services"
+	"user/service"
 
 	"github.com/go-micro/plugins/v4/registry/etcd"
 	"go-micro.dev/v4"
@@ -29,7 +29,7 @@ func main() {
 
 	s.Init()
 
-	if err := services.RegisterUserServiceHandler(s.Server(), new(core.UserService)); err != nil {
+	if err := service.RegisterUserServiceHandler(s.Server(), new(core.UserService)); err != nil {
 		log.Panic(err)
 	}
 

@@ -27,8 +27,8 @@ func main() {
 		micro.WrapClient(wrappers.NewTaskWrapper),
 	)
 
-	userService := service.NewUserService("rpcUserService", userMicroService.Client())
-	taskService := service.NewTaskService("rpctaskService", taskMicroService.Client())
+	userService := service.NewUserService("todolist.service.user", userMicroService.Client())
+	taskService := service.NewTaskService("todolist.service.task", taskMicroService.Client())
 	server := web.NewService(
 		web.Name("httpService"),
 		web.Address(":4000"),

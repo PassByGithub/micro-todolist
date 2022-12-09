@@ -1,5 +1,5 @@
 syntax="proto3";
-package services;
+package gateway;
 option go_package = "./;service";
 
 
