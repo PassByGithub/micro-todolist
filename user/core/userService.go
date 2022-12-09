@@ -36,7 +36,7 @@ func (*UserService) UserLogin(ctx context.Context, req *service.UserRequest, res
 		return nil
 	}
 
-	if user.CheckPassword(req.UserPassword) == false {
+	if !user.CheckPassword(req.UserPassword) {
 		res.Code = 400
 		return nil
 	}
