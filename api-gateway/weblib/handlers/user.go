@@ -29,8 +29,13 @@ func UserLogin(ctx *gin.Context) {
 	userResp, err := userService.UserLogin(context.Background(), &userReq)
 	PanicIfUserError(err)
 
+	//生成token
 	token, err := utils.GenerateToken(uint(userResp.UserDetail.ID))
+	if err != nil {
+		panic(err)
+	}
 
+	//返回token
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": userResp.Code,
 		"msg":  "token generated",
