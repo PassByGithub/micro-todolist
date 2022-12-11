@@ -76,11 +76,12 @@ func UpdateTask(ginCtx *gin.Context) {
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
 	taskReq.Uid = uint64(claim.Id)
+
 	id, _ := strconv.Atoi(ginCtx.Param("id"))
 	taskReq.Id = uint64(id)
 
 	//Call function
-	taskRes, err := taskService.GetTask(context.Background(), &taskReq)
+	taskRes, err := taskService.UpdateTask(context.Background(), &taskReq)
 
 	PanicIfTaskError(err)
 
