@@ -45,6 +45,7 @@ func CreateTaskList(ginCtx *gin.Context) {
 	}
 	ginCtx.JSON(200, gin.H{
 		"data": taskRes.TaskDetail,
+		"msg":  "Succesfully Created",
 	})
 }
 
