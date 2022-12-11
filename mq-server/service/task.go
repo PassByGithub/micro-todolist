@@ -2,6 +2,7 @@ package service
 
 import (
 	"encoding/json"
+	"fmt"
 	"mq-server/model"
 )
 
@@ -37,6 +38,7 @@ func CreateTask() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("%+v\n", t)
 			model.DB.Create(&t)
 			_ = d.Ack(false)
 

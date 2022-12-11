@@ -32,5 +32,7 @@ func Database(connstring string) {
 		panic(err)
 	}
 
+	DB = db
+
 	db.AutoMigrate(&Task{})
 }

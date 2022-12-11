@@ -14,15 +14,19 @@ func JWT() gin.HandlerFunc {
 		code = 200
 		//Get token
 		token := c.GetHeader("Authorization")
+
+		//Not Header:Authorization
 		if token == "" {
 			code = 404
 		} else {
-			//ParseToken
+			//ParseToken,if token is wrong
 			_, err := utils.ParseToken(token)
 			if err != nil {
 				code = 401
 			}
 		}
+
+		//code
 		if code != 200 {
 			c.JSON(500, gin.H{
 				"code": code,

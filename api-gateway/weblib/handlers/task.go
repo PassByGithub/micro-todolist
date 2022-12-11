@@ -54,6 +54,7 @@ func GetTaskDetail(ginCtx *gin.Context) {
 	taskService := ginCtx.Keys["taskService"].(service.TaskService)
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
+	//ParseToken return Uid
 	taskReq.Uid = uint64(claim.Id)
 
 	id, _ := strconv.Atoi(ginCtx.Param("id"))

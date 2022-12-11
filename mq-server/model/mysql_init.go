@@ -31,4 +31,6 @@ func Database(connstring string) {
 	if err != nil {
 		panic(err)
 	}
+
+	DB = db
 }
