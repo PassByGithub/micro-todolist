@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
+	"proto/microuser"
 	"user/conf"
 	"user/core"
-	"user/service"
 
 	"github.com/go-micro/plugins/v4/registry/etcd"
 	"go-micro.dev/v4"
@@ -29,7 +29,7 @@ func main() {
 
 	s.Init()
 
-	if err := service.RegisterUserServiceHandler(s.Server(), new(core.UserService)); err != nil {
+	if err := microuser.RegisterUserServiceHandler(s.Server(), new(core.UserService)); err != nil {
 		log.Panic(err)
 	}
 

@@ -2,19 +2,19 @@ package handlers
 
 import (
 	"api-gateway/pkg/utils"
-	"api-gateway/service"
 	"context"
 	"net/http"
+	"proto/microuser"
 
 	"github.com/gin-gonic/gin"
 )
 
 func UserRegister(ctx *gin.Context) {
-	var userReq service.UserRequest
+	var userReq microuser.UserRequest
 	PanicIfUserError(ctx.Bind(&userReq))
 
 	//从gin.Keys中取出请求的服务实例
-	userService := ctx.Keys["userService"].(service.UserService)
+	userService := ctx.Keys["userService"].(microuser.UserService)
 	userResp, err := userService.UserRegister(context.Background(), &userReq)
 
 	//return resp
@@ -23,9 +23,9 @@ func UserRegister(ctx *gin.Context) {
 }
 
 func UserLogin(ctx *gin.Context) {
-	var userReq service.UserRequest
+	var userReq microuser.UserRequest
 	PanicIfUserError(ctx.Bind(&userReq))
-	userService := ctx.Keys["userService"].(service.UserService)
+	userService := ctx.Keys["userService"].(microuser.UserService)
 	userResp, err := userService.UserLogin(context.Background(), &userReq)
 	PanicIfUserError(err)
 

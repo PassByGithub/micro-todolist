@@ -1,33 +1,33 @@
 package wrappers
 
 import (
-	"api-gateway/service"
 	"context"
+	"proto/microtask"
 	"strconv"
 
 	"github.com/afex/hystrix-go/hystrix"
 	"go-micro.dev/v4/client"
 )
 
-func NewTask(id uint64, name string) *service.TaskModel {
-	return &service.TaskModel{
+func NewTask(id uint64, name string) *microtask.TaskModel {
+	return &microtask.TaskModel{
 		Id:         id,
 		Title:      name,
 		Content:    "out of time",
 		StartTime:  1000,
 		Status:     0,
-		CreateTime: 1000,
-		UpdateTime: 1000,
+		CreateTime: "1000",
+		UpdateTime: "1000",
 	}
 }
 
 func DefaultTasks(res interface{}) {
-	models := make([]*service.TaskModel, 0)
+	models := make([]*microtask.TaskModel, 0)
 
 	for i := 0; i < 10; i++ {
 		models = append(models, NewTask(uint64(i), "降级"+strconv.Itoa(20+int(i))))
 	}
-	result := res.(*service.TaskListResponse)
+	result := res.(*microtask.TaskListResponse)
 	result.TaskList = models
 
 }

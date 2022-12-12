@@ -1,0 +1,14 @@
+syntax="proto3";
+package services;
+option go_package="./microuser/;microuser";
+
+message UserModel{
+    
+    uint32 ID=1;
+    string Username=2;
+    string CreateAt=3;
+    string UpdatedAt=4;
+    string DeletedAt=5;
+   
+}
+

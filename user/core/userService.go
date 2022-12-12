@@ -4,26 +4,27 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"proto/microuser"
+	"time"
 	"user/model"
-	"user/service"
 
 	"gorm.io/gorm"
 )
 
 //序列化
 //transform model.User into service.UserModel to microservice
-func BuildUser(item model.User) *service.UserModel {
-	userModel := service.UserModel{
+func BuildUser(item model.User) *microuser.UserModel {
+	userModel := microuser.UserModel{
 		ID:        uint32(item.ID),
 		Username:  item.UserName,
-		CreateAt:  item.CreatedAt.Unix(),
-		UpdatedAt: item.UpdatedAt.Unix(),
+		CreateAt:  item.CreatedAt.Format(time.UnixDate),
+		UpdatedAt: item.UpdatedAt.Format(time.UnixDate),
 	}
 
 	return &userModel
 }
 
-func (*UserService) UserLogin(ctx context.Context, req *service.UserRequest, res *service.UserResponse) error {
+func (*UserService) UserLogin(ctx context.Context, req *microuser.UserRequest, res *microuser.UserResponse) error {
 	var user model.User
 	res.Code = 200
 
@@ -49,7 +50,7 @@ func (*UserService) UserLogin(ctx context.Context, req *service.UserRequest, res
 //req != model.User
 //req recieved by microservice
 //model.User是数据库模型
-func (*UserService) UserRegister(ctx context.Context, req *service.UserRequest, res *service.UserResponse) error {
+func (*UserService) UserRegister(ctx context.Context, req *microuser.UserRequest, res *microuser.UserResponse) error {
 
 	var user model.User
 

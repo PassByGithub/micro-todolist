@@ -5,15 +5,15 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"proto/microtask"
 	"task/model"
-	"task/service"
 
 	"github.com/streadway/amqp"
 )
 
 //memorandum created
 //Memorandum transformed into RabbitMQ Queue
-func (*TaskService) CreateTask(ctx context.Context, req *service.TaskRequest, resp *service.TaskDetailResponse) error {
+func (*TaskService) CreateTask(ctx context.Context, req *microtask.TaskRequest, resp *microtask.TaskDetailResponse) error {
 	ch, err := model.MQ.Channel()
 	if err != nil {
 		err := errors.New("RabbitMQ Error: " + err.Error())
@@ -46,7 +46,7 @@ func (*TaskService) CreateTask(ctx context.Context, req *service.TaskRequest, re
 }
 
 //GetList
-func (*TaskService) GetTaskList(ctx context.Context, req *service.TaskRequest, res *service.TaskListResponse) error {
+func (*TaskService) GetTaskList(ctx context.Context, req *microtask.TaskRequest, res *microtask.TaskListResponse) error {
 	if req.Limit == 0 {
 		req.Limit = 10
 	}
@@ -60,7 +60,7 @@ func (*TaskService) GetTaskList(ctx context.Context, req *service.TaskRequest, r
 
 	model.DB.Model(&model.Task{}).Where("uid=?", req.Uid).Count(&count)
 
-	var taskRes []*service.TaskModel
+	var taskRes []*microtask.TaskModel
 	for _, item := range taskData {
 		taskRes = append(taskRes, BuildTask(item))
 	}
@@ -72,7 +72,7 @@ func (*TaskService) GetTaskList(ctx context.Context, req *service.TaskRequest, r
 }
 
 //GetDetail
-func (*TaskService) GetTask(ctx context.Context, req *service.TaskRequest, res *service.TaskDetailResponse) error {
+func (*TaskService) GetTask(ctx context.Context, req *microtask.TaskRequest, res *microtask.TaskDetailResponse) error {
 	taskData := model.Task{}
 	model.DB.First(&taskData, req.Id)
 	taskRes := BuildTask(taskData)
@@ -81,7 +81,7 @@ func (*TaskService) GetTask(ctx context.Context, req *service.TaskRequest, res *
 }
 
 //UpdateDetail
-func (*TaskService) UpdateTask(ctx context.Context, req *service.TaskRequest, res *service.TaskDetailResponse) error {
+func (*TaskService) UpdateTask(ctx context.Context, req *microtask.TaskRequest, res *microtask.TaskDetailResponse) error {
 	taskData := model.Task{}
 	model.DB.Model(&model.Task{}).Where("id=? AND uid=?", req.Id, req.Uid).First(&taskData)
 	taskData.Title = req.Title
@@ -93,7 +93,7 @@ func (*TaskService) UpdateTask(ctx context.Context, req *service.TaskRequest, re
 }
 
 //DeleteDetail
-func (*TaskService) DeleteTask(ctx context.Context, req *service.TaskRequest, res *service.TaskDetailResponse) error {
+func (*TaskService) DeleteTask(ctx context.Context, req *microtask.TaskRequest, res *microtask.TaskDetailResponse) error {
 	model.DB.Model(&model.Task{}).Where("id=? AND uid=?", req.Id, req.Uid).Delete(&model.Task{})
 	return nil
 }

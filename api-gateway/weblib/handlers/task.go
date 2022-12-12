@@ -2,17 +2,17 @@ package handlers
 
 import (
 	"api-gateway/pkg/utils"
-	"api-gateway/service"
 	"context"
+	"proto/microtask"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetTaskList(ginCtx *gin.Context) {
-	var taskReq service.TaskRequest
+	var taskReq microtask.TaskRequest
 	PanicIfTaskError(ginCtx.Bind(&taskReq))
-	taskService := ginCtx.Keys["taskService"].(service.TaskService)
+	taskService := ginCtx.Keys["taskService"].(microtask.TaskService)
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
 	taskReq.Uid = uint64(claim.Id)
@@ -31,9 +31,9 @@ func GetTaskList(ginCtx *gin.Context) {
 }
 
 func CreateTaskList(ginCtx *gin.Context) {
-	var taskReq service.TaskRequest
+	var taskReq microtask.TaskRequest
 	PanicIfTaskError(ginCtx.Bind(&taskReq))
-	taskService := ginCtx.Keys["taskService"].(service.TaskService)
+	taskService := ginCtx.Keys["taskService"].(microtask.TaskService)
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
 	taskReq.Uid = uint64(claim.Id)
@@ -50,9 +50,9 @@ func CreateTaskList(ginCtx *gin.Context) {
 }
 
 func GetTaskDetail(ginCtx *gin.Context) {
-	var taskReq service.TaskRequest
+	var taskReq microtask.TaskRequest
 	PanicIfTaskError(ginCtx.Bind(&taskReq))
-	taskService := ginCtx.Keys["taskService"].(service.TaskService)
+	taskService := ginCtx.Keys["taskService"].(microtask.TaskService)
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
 	//ParseToken return Uid
@@ -71,9 +71,9 @@ func GetTaskDetail(ginCtx *gin.Context) {
 }
 
 func UpdateTask(ginCtx *gin.Context) {
-	var taskReq service.TaskRequest
+	var taskReq microtask.TaskRequest
 	PanicIfTaskError(ginCtx.Bind(&taskReq))
-	taskService := ginCtx.Keys["taskService"].(service.TaskService)
+	taskService := ginCtx.Keys["taskService"].(microtask.TaskService)
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
 	taskReq.Uid = uint64(claim.Id)
@@ -91,9 +91,9 @@ func UpdateTask(ginCtx *gin.Context) {
 	})
 }
 func DeleteTask(ginCtx *gin.Context) {
-	var taskReq service.TaskRequest
+	var taskReq microtask.TaskRequest
 	PanicIfTaskError(ginCtx.Bind(&taskReq))
-	taskService := ginCtx.Keys["taskService"].(service.TaskService)
+	taskService := ginCtx.Keys["taskService"].(microtask.TaskService)
 
 	claim, _ := utils.ParseToken(ginCtx.GetHeader("Authorization"))
 	taskReq.Uid = uint64(claim.Id)

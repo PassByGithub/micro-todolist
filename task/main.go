@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
+	"proto/microtask"
 	"task/conf"
 	"task/core"
-	"task/service"
 
 	"github.com/go-micro/plugins/v4/registry/etcd"
 	"go-micro.dev/v4"
@@ -27,7 +27,7 @@ func main() {
 
 	s.Init()
 
-	if err := service.RegisterTaskServiceHandler(s.Server(), new(core.TaskService)); err != nil {
+	if err := microtask.RegisterTaskServiceHandler(s.Server(), new(core.TaskService)); err != nil {
 		log.Panic(err)
 	}
 

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"api-gateway/service"
 	"api-gateway/weblib"
 	"api-gateway/wrappers"
+	taskproto "proto/microtask"
+	userproto "proto/microuser"
 	"time"
 
 	"github.com/go-micro/plugins/v4/registry/etcd"
@@ -27,8 +28,8 @@ func main() {
 		micro.WrapClient(wrappers.NewTaskWrapper),
 	)
 
-	userService := service.NewUserService("todolist.service.user", userMicroService.Client())
-	taskService := service.NewTaskService("todolist.service.task", taskMicroService.Client())
+	userService := userproto.NewUserService("todolist.service.user", userMicroService.Client())
+	taskService := taskproto.NewTaskService("todolist.service.task", taskMicroService.Client())
 	server := web.NewService(
 		web.Name("httpService"),
 		web.Address(":4000"),
